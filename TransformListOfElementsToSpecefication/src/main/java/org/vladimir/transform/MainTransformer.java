@@ -17,8 +17,6 @@ public class MainTransformer {
                                 ("D:\\TransformListOfElementsToSpecfication\\src\\main\\resources\\SVP-564.txt");*/
 
         byte[] bytes =
-
-
                 transformerListOfElementsToNeedFormat
                       .convertElementsToHTML
                               ("D:\\TransformListOfElementsToSpecefication\\src\\main\\resources\\SVP-564.txt")
