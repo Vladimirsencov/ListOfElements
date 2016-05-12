@@ -21,14 +21,11 @@ public class TreeSetTest {
         parts.add(new Item("Modem", 9912));
         System.out.println(parts);
 
-        SortedSet<Item> sortByDescription = new TreeSet<>(new
-                                                                  Comparator<Item>() {
-                                                                      public int compare(Item a, Item b) {
-                                                                          String descrA = a.getDescription();
-                                                                          String descrB = b.getDescription();
-                                                                          return descrA.compareTo(descrB);
-                                                                      }
-                                                                  });
+        SortedSet<Item> sortByDescription = new TreeSet<>((Comparator<Item>) (a, b) -> {
+            String descrA = a.getDescription();
+            String descrB = b.getDescription();
+            return descrA.compareTo(descrB);
+        });
 
         sortByDescription.addAll(parts);
         System.out.println(sortByDescription);

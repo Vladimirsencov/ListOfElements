@@ -37,13 +37,11 @@ public class WelcomeApplet extends JApplet {
     }
 
     private ActionListener makeAction(final String urlString) {
-        return new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                try {
-                    getAppletContext().showDocument(new URL(urlString));
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                }
+        return event -> {
+            try {
+                getAppletContext().showDocument(new URL(urlString));
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
             }
         };
     }
