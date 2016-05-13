@@ -97,7 +97,7 @@ public class TransformerListOfElementsToNeedFormat {
 
         builder.append("</table>").append("\n");
         builder.append("</body>").append("\n");
-        builder.append("</html");
+        builder.append("</html>");
         return builder;
     }
 
