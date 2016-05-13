@@ -10,17 +10,14 @@ import java.nio.file.Paths;
  */
 public class MainTransformer {
     public static void main(String[] args) throws IOException {
-        TransformerListOfElementsToNeedFormat transformerListOfElementsToNeedFormat = new TransformerListOfElementsToNeedFormat();
-        /*Collection<TransformerListOfElementsToNeedFormat.Element> elements =
-                transformerListOfElementsToNeedFormat
-                        .getElementsFromFile
-                                ("D:\\TransformListOfElementsToSpecfication\\src\\main\\resources\\SVP-564.txt");*/
+        TransformerListOfElementsToNeedFormat transformerListOfElementsToNeedFormat
+                = new TransformerListOfElementsToNeedFormat();
 
         byte[] bytes =
                 transformerListOfElementsToNeedFormat
                       .convertElementsToHTML
                               ("D:\\TransformListOfElementsToSpecefication\\src\\main\\resources\\SVP-564.txt")
-                      .getBytes(Charset.forName("UTF-8"));
+                        .getBytes(Charset.forName("windows-1251"));
         Files.write(Paths.get("D:\\TransformListOfElementsToSpecefication\\src\\main\\resources\\564.html"), bytes);
     }
 }

@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 public class TransformerListOfElementsToNeedFormat {
 
     static String HEADER = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\"\n" +
-            "        \"http://www.w3.org/TR/html4/loose.dtd\">";
+            "        \"http://www.w3.org/TR/html4/loose.dtd\">\n";
 
     Collection<Element> getElementsFromFile(String fileName) throws IOException {
         final Map<String, Element> elementMap = new HashMap<>(500);
@@ -36,33 +36,47 @@ public class TransformerListOfElementsToNeedFormat {
 
         final StringBuilder builder = new StringBuilder(HEADER);
         builder.append("<html>").append("\n")
-                .append("<meta charset=\"UTF-8\"> ")
                 .append("<head>").append("\n")
-                .append("<title>").append("</title>").append("\n")
+                .append("<title>").append("Элементы").append("</title>").append("\n")
+                .append("<meta http-equiv=\"Content-Type\" content=\"text/html ; charset=windows-1251\"> \n")
                 .append("</head>").append("\n");
-        builder.append("<body>").append("\n");
-        builder.append("<table border=\"1\"> ").append("\n");
 
+        builder.append("<body>").append("\n");
+
+        builder.append("<table border=\"1\" width=\"1000\"> ").append("\n");
+
+        builder.append("<caption>\n").append("Элементы").append("\n</caption>\n");
+
+        builder.append("\n<thead>\n");
         builder.append("<tr>")
                 .append("<th>").append("№").append("</th>")
                 .append("<th>").append("Название").append("</th>")
                 .append("<th>").append("Количесво").append("</th>")
-                .append("<th>").append("Обозначения").append("</th>")
+                .append("<th >").append("Обозначения").append("</th>")
                 .append("</tr>");
 
-        elements.forEach(element ->
+        builder.append("\n</thead>\n");
 
+        builder.append("<tbody>");
+
+
+
+        elements.forEach(element ->
                 builder.append("<tr>").append("\n")
                         .append("<td>").append(countRow[0]++).append("</td>").append("\n")
                         .append("<td>").append(element.name).append("</td>").append("\n")
                         .append("<td>").append(element.count).append("</td>").append("\n")
                         .append("<td>").append(elementClassToString(element)).append("</td>").append("\n")
-                        .append("</tr>")
+                        .append("</tr>").append("\n")
         );
+
+
+        builder.append("</tbody>");
 
         builder.append("</table>").append("\n");
         builder.append("</body>").append("\n");
         builder.append("</html");
+
         return builder.toString();
     }
 
@@ -89,7 +103,7 @@ public class TransformerListOfElementsToNeedFormat {
 
 
     String elementClassToString(Element element) {
-        return element.elementsClass.stream().collect(Collectors.joining(","));
+        return element.elementsClass.stream().collect(Collectors.joining(",\n"));
 
     }
 }

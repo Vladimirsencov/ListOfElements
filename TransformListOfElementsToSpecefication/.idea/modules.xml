@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://D://TransformListOfElementsToSpecefication/TransformListOfElementsToSpecefication.iml" filepath="D://TransformListOfElementsToSpecefication/TransformListOfElementsToSpecefication.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TransformListOfElementsToSpecefication.iml" filepath="$PROJECT_DIR$/TransformListOfElementsToSpecefication.iml" />
     </modules>
   </component>
 </project>
