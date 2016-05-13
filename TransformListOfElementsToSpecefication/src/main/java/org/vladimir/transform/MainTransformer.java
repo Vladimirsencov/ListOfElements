@@ -25,7 +25,7 @@ public class MainTransformer {
                 transformerListOfElementsToNeedFormat
                       .convertElementsToHTML
                               ("D:\\TransformListOfElementsToSpecefication\\src\\main\\resources\\SFM-4A250.txt"
-                                      , "Микросхема", firms[2])
+                              )
                         .getBytes(Charset.forName("windows-1251"));
         Files.write(Paths.get("D:\\TransformListOfElementsToSpecefication\\src\\main\\resources\\SFM-4A250.html"), bytes);
     }

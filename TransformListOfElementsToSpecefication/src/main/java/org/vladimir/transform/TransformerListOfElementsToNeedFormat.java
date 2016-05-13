@@ -138,6 +138,4 @@ public class TransformerListOfElementsToNeedFormat {
         else return filterBuilder(stream.filter(element -> element.name.contains(str[i])), i + 1, str);
     }
 
-
-
 }
