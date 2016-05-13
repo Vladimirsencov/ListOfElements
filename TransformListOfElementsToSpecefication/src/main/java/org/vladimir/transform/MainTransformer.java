@@ -16,9 +16,10 @@ public class MainTransformer {
         byte[] bytes =
                 transformerListOfElementsToNeedFormat
                       .convertElementsToHTML
-                              ("D:\\TransformListOfElementsToSpecefication\\src\\main\\resources\\SVP-564.txt")
+                              ("D:\\TransformListOfElementsToSpecefication\\src\\main\\resources\\SFM-4A250.txt"
+                                      , "Конденсатор", "Murata")
                         .getBytes(Charset.forName("windows-1251"));
-        Files.write(Paths.get("D:\\TransformListOfElementsToSpecefication\\src\\main\\resources\\564.html"), bytes);
+        Files.write(Paths.get("D:\\TransformListOfElementsToSpecefication\\src\\main\\resources\\SFM-4A250.html"), bytes);
     }
 }
 

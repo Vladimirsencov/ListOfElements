@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
-import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
 
 /**
  * Created by Sentsov on 12.05.2016.
@@ -18,10 +21,11 @@ public class TransformerListOfElementsToNeedFormat {
         final Map<String, Element> elementMap = new HashMap<>(500);
         Files.lines(Paths.get(fileName))
                 .filter(s1 -> !s1.isEmpty())
+                .peek(System.out::println)
                 .map(s -> s.split("\\t"))
                 .forEach(st -> elementMap.merge(st[1], new Element(st), (elem, u) -> elem.addElement(st)));
         return elementMap.values().stream()
-                .sorted((e, e1) -> e.elementsClass.get(0).compareTo(e1.elementsClass.get(0))).collect(Collectors.toList());
+                .sorted((e, e1) -> e.elementsClass.get(0).compareTo(e1.elementsClass.get(0))).collect(toList());
     }
 
     String convertElementsToHTML(String fileName) {
@@ -34,6 +38,25 @@ public class TransformerListOfElementsToNeedFormat {
             throw new NullPointerException("Не удалось создать коллекцию");
         }
 
+        final StringBuilder builder = getStringBuilderForHTML(countRow, elements);
+
+        return builder.toString();
+    }
+
+    String convertElementsToHTML(String fileName, String... filterParameter) {
+        final int[] countRow = {1};
+        Collection<Element> elements = null;
+        try {
+            elements = getElementsFromFile(fileName, filterParameter);
+        } catch (IOException e) {
+            e.printStackTrace(System.out);
+            throw new NullPointerException("Не удалось создать коллекцию");
+        }
+        final StringBuilder builder = getStringBuilderForHTML(countRow, elements);
+        return builder.toString();
+    }
+
+    private StringBuilder getStringBuilderForHTML(int[] countRow, Collection<Element> elements) {
         final StringBuilder builder = new StringBuilder(HEADER);
         builder.append("<html>").append("\n")
                 .append("<head>").append("\n")
@@ -60,7 +83,6 @@ public class TransformerListOfElementsToNeedFormat {
         builder.append("<tbody>");
 
 
-
         elements.forEach(element ->
                 builder.append("<tr>").append("\n")
                         .append("<td>").append(countRow[0]++).append("</td>").append("\n")
@@ -76,8 +98,7 @@ public class TransformerListOfElementsToNeedFormat {
         builder.append("</table>").append("\n");
         builder.append("</body>").append("\n");
         builder.append("</html");
-
-        return builder.toString();
+        return builder;
     }
 
 
@@ -101,9 +122,22 @@ public class TransformerListOfElementsToNeedFormat {
         }
     }
 
+    Collection<Element> getElementsFromFile(String fileName, String... filterParameter) throws IOException {
+        Stream<Element> elementStream = getElementsFromFile(fileName).stream();
+        return filterBuilder(elementStream, 0, filterParameter).collect(toList());
+    }
 
     String elementClassToString(Element element) {
-        return element.elementsClass.stream().collect(Collectors.joining(",\n"));
+        return element.elementsClass.stream().collect(joining(",\n"));
 
     }
+
+    Stream<Element> filterBuilder(Stream<Element> stream, int i, String... str) {
+        if (i == str.length)
+            return stream;
+        else return filterBuilder(stream.filter(element -> element.name.contains(str[i])), i + 1, str);
+    }
+
+
+
 }
