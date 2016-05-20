@@ -10,12 +10,7 @@ import java.nio.file.Paths;
  */
 public class MainTransformer {
     final static String[] firms = {
-            "Analog Devices",
-            "Atmel",
-            "Maxim Integrated Products",
-            "ON Semiconductor",
-            "National Semiconductor",
-            "Texas Instruments"
+
     };
     public static void main(String[] args) throws IOException {
         TransformerListOfElementsToNeedFormat transformerListOfElementsToNeedFormat
@@ -24,8 +19,8 @@ public class MainTransformer {
         byte[] bytes =
                 transformerListOfElementsToNeedFormat
                       .convertElementsToHTML
-                              ("D:\\TransformListOfElementsToSpecefication\\src\\main\\resources\\SFM-4A250.txt"
-                              )
+                              ("D:\\TransformListOfElementsToSpecefication\\src\\main\\resources\\SFM-4A250.txt")
+
                         .getBytes(Charset.forName("windows-1251"));
         Files.write(Paths.get("D:\\TransformListOfElementsToSpecefication\\src\\main\\resources\\SFM-4A250.html"), bytes);
     }

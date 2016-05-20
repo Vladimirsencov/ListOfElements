@@ -6,6 +6,9 @@
         <element id="directory" name="classes">
           <element id="module-output" name="TransformListOfElementsToSpecefication" />
         </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: net.sf.trove4j:trove4j:3.0.3" />
+        </element>
       </element>
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/target/TransformListOfElementsToSpec-1.0-SNAPSHOT/META-INF/MANIFEST.MF" />

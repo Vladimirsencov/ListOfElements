@@ -1,5 +1,8 @@
 package org.vladimir.transform;
 
+import gnu.trove.decorator.TCharListDecorator;
+import gnu.trove.list.array.TCharArrayList;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -21,7 +24,8 @@ public class TransformerListOfElementsToNeedFormat {
         final Map<String, Element> elementMap = new HashMap<>(500);
         Files.lines(Paths.get(fileName))
                 .filter(s1 -> !s1.isEmpty())
-                .peek(System.out::println)
+//                .peek(System.out::println)
+                .map(s2 -> s2.replaceAll(Character.toString((char) 8211), Character.toString((char) 45)))
                 .map(s -> s.split("\\t"))
                 .forEach(st -> elementMap.merge(st[1], new Element(st), (elem, u) -> elem.addElement(st)));
         return elementMap.values().stream()
@@ -136,6 +140,13 @@ public class TransformerListOfElementsToNeedFormat {
         if (i == str.length)
             return stream;
         else return filterBuilder(stream.filter(element -> element.name.contains(str[i])), i + 1, str);
+    }
+
+    String string(char[] chars, int a, int b) {
+        TCharListDecorator tCharListDecorator = new TCharListDecorator(new TCharArrayList(chars));
+        tCharListDecorator.stream();
+
+        return null;
     }
 
 }
