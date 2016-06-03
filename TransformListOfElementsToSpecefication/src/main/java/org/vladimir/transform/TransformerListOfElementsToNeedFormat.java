@@ -24,17 +24,21 @@ public class TransformerListOfElementsToNeedFormat {
         final Map<String, Element> elementMap = new HashMap<>(500);
         Files.lines(Paths.get(fileName))
                 .filter(s1 -> !s1.isEmpty())
-//                .peek(System.out::println)
                 .map(s2 -> s2.replaceAll(Character.toString((char) 8211), Character.toString((char) 45)))
+                .filter(s -> s.contains("Резистор" ))
+//                .filter(s -> s.contains("Panasonic"))
                 .map(s -> s.split("\\t"))
-                .forEach(st -> elementMap.merge(st[1], new Element(st), (elem, u) -> elem.addElement(st)));
+                .filter(strings -> {
+                if(strings.length<3)
+                System.out.println(Arrays.toString(strings)); return strings.length==3;})
+               .forEach(st -> elementMap.merge(st[1], new Element(st), (elem, u) -> elem.addElement(st)));
         return elementMap.values().stream()
                 .sorted((e, e1) -> e.elementsClass.get(0).compareTo(e1.elementsClass.get(0))).collect(toList());
     }
 
     String convertElementsToHTML(String fileName) {
         final int[] countRow = {1};
-        Collection<Element> elements = null;
+        Collection<Element> elements;
         try {
             elements = getElementsFromFile(fileName);
         } catch (IOException e) {
@@ -114,13 +118,18 @@ public class TransformerListOfElementsToNeedFormat {
         Element(String... strings) {
             elementsClass = new ArrayList<>();
             elementsClass.add(strings[0]);
-            count = Integer.valueOf(strings[2]);
+            try {
+                count = Integer.valueOf(strings[2].trim());
+            }
+            catch (ArrayIndexOutOfBoundsException ex){
+                Stream.of(strings).forEach(s -> System.out.println("<----"+s+"---->"));
+            }
             name = strings[1];
         }
 
         Element addElement(String[] strings) {
             elementsClass.add(strings[0]);
-            count += Integer.valueOf(strings[2]);
+            count += Integer.valueOf(strings[2].trim());
             name = strings[1];
             return this;
         }
@@ -142,11 +151,6 @@ public class TransformerListOfElementsToNeedFormat {
         else return filterBuilder(stream.filter(element -> element.name.contains(str[i])), i + 1, str);
     }
 
-    String string(char[] chars, int a, int b) {
-        TCharListDecorator tCharListDecorator = new TCharListDecorator(new TCharArrayList(chars));
-        tCharListDecorator.stream();
 
-        return null;
-    }
 
 }

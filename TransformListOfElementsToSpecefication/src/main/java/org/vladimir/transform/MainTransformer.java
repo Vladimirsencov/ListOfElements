@@ -13,16 +13,35 @@ public class MainTransformer {
 
     };
     public static void main(String[] args) throws IOException {
+        System.out.println(args.length);
+        char ch = '0';
+        while (ch<9){
+            System.out.println(ch++);
+        }
         TransformerListOfElementsToNeedFormat transformerListOfElementsToNeedFormat
                 = new TransformerListOfElementsToNeedFormat();
 
         byte[] bytes =
                 transformerListOfElementsToNeedFormat
                       .convertElementsToHTML
-                              ("D:\\TransformListOfElementsToSpecefication\\src\\main\\resources\\SFM-4A250.txt")
+                              ("D:\\ListOfElements\\TransformListOfElementsToSpecefication\\src\\main\\resources\\SFM-2AD1000.txt")
 
                         .getBytes(Charset.forName("windows-1251"));
-        Files.write(Paths.get("D:\\TransformListOfElementsToSpecefication\\src\\main\\resources\\SFM-4A250.html"), bytes);
+        Files.write(Paths.get("D:\\ListOfElements\\TransformListOfElementsToSpecefication\\src\\main\\resources\\SFM-2AD1000.html"), bytes);
+
+        System.out.println(checkString("Конденсатор 0402-X7R-16В-0.1±15% Murata","Конденсатор 0402-X7R-16В-0.1±15% Murata"));
+    }
+
+    private static int checkString(String...strings){
+        if(strings[0].equals(strings[1])) return -2;
+        String s1= strings[0];
+        String s2 = strings[1];
+        char[] chars1 = s1.toCharArray();
+        char[] chars2 = s2.toCharArray();
+        for (int i = 0; i < chars1.length ; i++) {
+            if(chars1[i]!=chars2[i]) return i;
+        }
+        return -1;
     }
 }
 
