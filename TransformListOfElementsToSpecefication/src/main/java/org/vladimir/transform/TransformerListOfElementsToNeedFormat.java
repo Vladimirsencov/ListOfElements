@@ -25,8 +25,8 @@ public class TransformerListOfElementsToNeedFormat {
         Files.lines(Paths.get(fileName))
                 .filter(s1 -> !s1.isEmpty())
                 .map(s2 -> s2.replaceAll(Character.toString((char) 8211), Character.toString((char) 45)))
-                .filter(s -> s.contains("Резистор" ))
-//                .filter(s -> s.contains("Panasonic"))
+       /*         .filter(s -> s.contains("Резистор" ))
+         .filter(s -> s.contains("Panasonic"))*/
                 .map(s -> s.split("\\t"))
                 .filter(strings -> {
                 if(strings.length<3)

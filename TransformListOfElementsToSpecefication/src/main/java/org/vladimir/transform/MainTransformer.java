@@ -24,10 +24,10 @@ public class MainTransformer {
         byte[] bytes =
                 transformerListOfElementsToNeedFormat
                       .convertElementsToHTML
-                              ("D:\\ListOfElements\\TransformListOfElementsToSpecefication\\src\\main\\resources\\SFM-2AD1000.txt")
+                              ("D:\\ListOfElements\\TransformListOfElementsToSpecefication\\src\\main\\resources\\SVR-525.txt")
 
                         .getBytes(Charset.forName("windows-1251"));
-        Files.write(Paths.get("D:\\ListOfElements\\TransformListOfElementsToSpecefication\\src\\main\\resources\\SFM-2AD1000.html"), bytes);
+        Files.write(Paths.get("D:\\ListOfElements\\TransformListOfElementsToSpecefication\\src\\main\\resources\\SVR-525.html"), bytes);
 
         System.out.println(checkString("Конденсатор 0402-X7R-16В-0.1±15% Murata","Конденсатор 0402-X7R-16В-0.1±15% Murata"));
     }
